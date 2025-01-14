@@ -77,20 +77,20 @@ fun OrderSectionRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
-            onClick = onClick
+            onClick = onClick,
         ) {
             Icon(
                 imageVector = Icons.Default.Sort,
                 contentDescription = "Sort notes",
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "", color = MaterialTheme.colorScheme.primary)
+            Text(text = "", color = MaterialTheme.colorScheme.onSurface)
         }
         Text(
             text = "|",
             modifier = Modifier.padding(horizontal = 4.dp),
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 22.sp
         )
         OrderTypeIconChange(

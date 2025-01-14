@@ -29,19 +29,19 @@ fun DefaultIconButton(
                     .size(21.dp),
                 imageVector = Icons.Default.ArrowDownward,
                 contentDescription = "Change OrderType",
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.onSurface
             )
         }
     } else {
         IconButton(
-            modifier = Modifier
-                .size(21.dp),
             onClick = { onClick(noteOrder.copy(OrderType.Descending)) }
         ) {
             Icon(
+                modifier = Modifier
+                    .size(21.dp),
                 imageVector = Icons.Default.ArrowUpward,
                 contentDescription = "Change OrderType",
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.onSurface
             )
         }
     }

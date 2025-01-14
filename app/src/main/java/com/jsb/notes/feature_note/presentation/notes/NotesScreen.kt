@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -78,7 +80,9 @@ fun NotesScreen (
     val snackbarHostState = remember {
         SnackbarHostState()
     }
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val drawerState = rememberDrawerState(
+        initialValue = DrawerValue.Closed,
+    )
     var displayFavoriteNotes by remember { mutableStateOf(false) }
     val itemsState = remember {
         mutableStateListOf(
@@ -98,8 +102,12 @@ fun NotesScreen (
         )
     }
     // Calculate offset based on drawer's state
-    val drawerOffsetDp = with(LocalDensity.current) { drawerState.offset.value.toDp() + 300.dp }
-    val animatedOffset by animateDpAsState(targetValue = drawerOffsetDp, label = "")
+    val drawerOffsetDp = with(LocalDensity.current) { drawerState.offset.value.toDp() + 320.dp }
+    val animatedOffset by animateDpAsState(
+        targetValue = drawerOffsetDp,
+//        animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing), // Control speed here
+        label = "Drawer Animation"
+    )
     val density = LocalDensity.current
     val animatedOffsetPx = with(density) { animatedOffset.toPx() }
 
@@ -116,6 +124,20 @@ fun NotesScreen (
             }
         }
     }
+    // Observe the DrawerState changes and sync scaffold animation
+//    LaunchedEffect(drawerState.isOpen) {
+//        if (drawerState.isOpen) {
+//            animatedOffset.animateTo(
+//                targetValue = 300f, // Width of the drawer
+//                animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
+//            )
+//        } else {
+//            animatedOffset.animateTo(
+//                targetValue = 0f,
+//                animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
+//            )
+//        }
+//    }
 
     ModalNavigationDrawer(
         modifier = modifier,
@@ -124,17 +146,17 @@ fun NotesScreen (
         drawerContent = {
             Column(
                 modifier = Modifier
-                    .padding(top = 31.dp)
-                    .clip(RoundedCornerShape(16.dp)),
+                    .padding(top = 44.dp)
+                    .clip(RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp)),
             ) {
                 Box(modifier = Modifier
-                    .background(color = MaterialTheme.colorScheme.surfaceDim)
+                    .background(color = MaterialTheme.colorScheme.surfaceContainerLow)
                     .height(40.dp)
-                    .width(300.dp)
+                    .width(320.dp)
                 )
                 DrawerScreen(
                     modifier = Modifier
-                        .background(color = MaterialTheme.colorScheme.surfaceDim),
+                        .background(color = MaterialTheme.colorScheme.surfaceContainerLow),
                     textStyle = TextStyle(
                         color = MaterialTheme.colorScheme.primary
                     ),
@@ -172,7 +194,10 @@ fun NotesScreen (
         },
         content = {
             Scaffold(
-                modifier = Modifier.graphicsLayer(translationX = animatedOffsetPx),
+                modifier = Modifier.graphicsLayer(
+                    translationX = animatedOffsetPx,
+                    alpha = if (drawerState.isOpen) 0.5f else 1f
+                ),
                 snackbarHost = { SnackbarHost(
                     hostState = snackbarHostState,
                     modifier = modifier
@@ -186,7 +211,9 @@ fun NotesScreen (
                         },
                         onNavigationIconClicked = {
                             // TODO: Drawer menu clicked.
-                            scope.launch { drawerState.open() }
+                            scope.launch {
+                                drawerState.open()
+                            }
                         }
                     )
                 },

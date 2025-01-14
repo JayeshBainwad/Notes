@@ -28,17 +28,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jsb.notes.ui.theme.LightGray
 
 @Composable
 fun DrawerScreen(
     modifier: Modifier = Modifier,
     items: List<MenuItem>,
     onClick: (MenuItem) -> Unit,
-    textStyle: TextStyle = TextStyle(fontSize = 24.sp)
+    textStyle: TextStyle = TextStyle(fontSize = 30.sp, color = MaterialTheme.colorScheme.onSurface)
 ) {
     LazyColumn(
         modifier = modifier
-            .width(300.dp)
+            .width(320.dp)
             .fillMaxHeight()
     ) {
         items(items){menuItem ->
@@ -51,8 +52,9 @@ fun DrawerScreen(
             ) {
                 Row(
                     modifier = modifier
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(color = if (menuItem.isSelected) MaterialTheme.colorScheme.surfaceBright else Color.Transparent)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(color = if (menuItem.isSelected) LightGray else Color.Transparent)
+                        .padding(start = 4.dp)
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -61,10 +63,10 @@ fun DrawerScreen(
                         contentDescription = menuItem.description,
                         tint = MaterialTheme.colorScheme.onSurface
                     ) }
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(20.dp))
                     Text(
                         text = menuItem.title,
-                        style = textStyle,
+                        style = TextStyle(fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface),
                         modifier = Modifier.weight(1f)
                     )
                 }

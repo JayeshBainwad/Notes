@@ -32,7 +32,7 @@ fun AppBarView(
                     Icon(
                         imageVector = Icons.Default.Menu,
                         contentDescription = "Toggle Drawer",
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -44,7 +44,7 @@ fun AppBarView(
                     Icon(
                         imageVector = Icons.Default.Menu,
                         contentDescription = "Toggle Drawer",
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -57,7 +57,7 @@ fun AppBarView(
         title = {
             Text(
                 text = title,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .fillMaxWidth(),
             )
