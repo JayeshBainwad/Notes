@@ -1,36 +1,20 @@
 package com.jsb.notes.feature_note.presentation.notes
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.annotation.ReturnThis
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.jsb.notes.feature_note.domain.model.Note
 import com.jsb.notes.feature_note.domain.use_cases.NoteUseCases
 import com.jsb.notes.feature_note.domain.util.NoteOrder
 import com.jsb.notes.feature_note.domain.util.OrderType
-import com.jsb.notes.feature_note.presentation.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 @HiltViewModel

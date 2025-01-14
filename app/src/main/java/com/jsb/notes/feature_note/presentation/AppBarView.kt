@@ -26,12 +26,12 @@ fun AppBarView(
     onNavigationIconClicked: () -> Unit = {}
 ) {
     val navigationIcon: (@Composable () -> Unit)? = when {
-        !title.contains("All notes") -> {
+        title.contains("Favourite notes") -> {
             {
-                IconButton(onClick = onBackNavClicked) {
+                IconButton(onClick = onNavigationIconClicked) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Display all notes",
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = "Toggle Drawer",
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }

@@ -113,9 +113,10 @@ fun NoteItem(
             //        TODO: Add preview image of note
             Column {
                 Text(
+                    modifier = Modifier.padding(end = 18.dp),
                     text = note.title,
                     style = textStyle.copy(
-                        fontSize = 16.sp
+                        fontSize = 18.sp
                     ),
                     color = MaterialTheme.colorScheme.scrim,
                     maxLines = 1,
@@ -123,6 +124,7 @@ fun NoteItem(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
+                    modifier = Modifier.padding(end = 8.dp),
                     text = note.content,
                     style = textStyle.copy(
                         fontSize = 12.sp
@@ -154,7 +156,7 @@ fun NoteItem(
                             tint = Color.Yellow,
                             modifier = Modifier
                                 .padding(bottom = 6.dp)
-                                .size(20.dp)
+                                .size(18.dp)
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f))
