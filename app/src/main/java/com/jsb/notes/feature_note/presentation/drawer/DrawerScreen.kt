@@ -26,9 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jsb.notes.ui.theme.LightGray
+import com.jsb.notes.ui.theme.NotesTheme
 
 @Composable
 fun DrawerScreen(
@@ -53,7 +57,7 @@ fun DrawerScreen(
                 Row(
                     modifier = modifier
                         .clip(RoundedCornerShape(8.dp))
-                        .background(color = if (menuItem.isSelected) LightGray else Color.Transparent)
+                        .background(color = if (menuItem.isSelected) MaterialTheme.colorScheme.surfaceContainerHighest else Color.Transparent)
                         .padding(start = 4.dp)
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -72,5 +76,29 @@ fun DrawerScreen(
                 }
             }
         }
+    }
+}
+
+@PreviewLightDark
+@Composable
+fun DrawerScreenPreview(){
+    NotesTheme {
+        DrawerScreen(
+            modifier = Modifier,
+            items = listOf(
+                MenuItem(
+                    title = "All notes",
+                    isSelected = true,
+                    icon = Icons.Default.MenuBook,
+                    description = ""
+                ),
+                MenuItem(
+                    title = "Favourite notes",
+                    isSelected = false,
+                    icon = Icons.Default.MenuBook,
+                    description = ""
+                ),
+            ),
+            onClick = {})
     }
 }

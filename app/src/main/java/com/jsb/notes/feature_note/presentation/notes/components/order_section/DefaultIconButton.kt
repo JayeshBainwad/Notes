@@ -29,7 +29,7 @@ fun DefaultIconButton(
                     .size(21.dp),
                 imageVector = Icons.Default.ArrowDownward,
                 contentDescription = "Change OrderType",
-                tint = MaterialTheme.colorScheme.onSurface
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
             )
         }
     } else {
@@ -41,7 +41,7 @@ fun DefaultIconButton(
                     .size(21.dp),
                 imageVector = Icons.Default.ArrowUpward,
                 contentDescription = "Change OrderType",
-                tint = MaterialTheme.colorScheme.onSurface
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
             )
         }
     }

@@ -65,6 +65,6 @@ fun AppBarView(
         navigationIcon = navigationIcon?:{},
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
-            .shadow(elevation = 3.dp)
+            .shadow(elevation = 0.dp)
     )
 }

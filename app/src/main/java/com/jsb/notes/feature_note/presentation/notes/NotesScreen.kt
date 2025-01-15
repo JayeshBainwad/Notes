@@ -3,17 +3,12 @@ package com.jsb.notes.feature_note.presentation.notes
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -82,6 +78,7 @@ fun NotesScreen (
     }
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed,
+        confirmStateChange = { true } // Add conditions if necessary
     )
     var displayFavoriteNotes by remember { mutableStateOf(false) }
     val itemsState = remember {
@@ -102,14 +99,9 @@ fun NotesScreen (
         )
     }
     // Calculate offset based on drawer's state
-    val drawerOffsetDp = with(LocalDensity.current) { drawerState.offset.value.toDp() + 320.dp }
-    val animatedOffset by animateDpAsState(
-        targetValue = drawerOffsetDp,
-//        animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing), // Control speed here
-        label = "Drawer Animation"
-    )
-    val density = LocalDensity.current
-    val animatedOffsetPx = with(density) { animatedOffset.toPx() }
+    val drawerWidth = 320.dp
+    val maxOffset = with(LocalDensity.current) { drawerWidth.toPx() }
+    val drawerOffsetPx = drawerState.offset.value + maxOffset
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
@@ -124,21 +116,6 @@ fun NotesScreen (
             }
         }
     }
-    // Observe the DrawerState changes and sync scaffold animation
-//    LaunchedEffect(drawerState.isOpen) {
-//        if (drawerState.isOpen) {
-//            animatedOffset.animateTo(
-//                targetValue = 300f, // Width of the drawer
-//                animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
-//            )
-//        } else {
-//            animatedOffset.animateTo(
-//                targetValue = 0f,
-//                animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
-//            )
-//        }
-//    }
-
     ModalNavigationDrawer(
         modifier = modifier,
         gesturesEnabled = drawerState.isOpen,
@@ -195,8 +172,9 @@ fun NotesScreen (
         content = {
             Scaffold(
                 modifier = Modifier.graphicsLayer(
-                    translationX = animatedOffsetPx,
+                    translationX = drawerOffsetPx,
                     alpha = if (drawerState.isOpen) 0.5f else 1f
+
                 ),
                 snackbarHost = { SnackbarHost(
                     hostState = snackbarHostState,
@@ -248,6 +226,8 @@ fun NotesScreen (
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         LazyVerticalGrid(
+                            modifier = Modifier
+                                .padding(horizontal = 8.dp),
                             columns = GridCells.Fixed(if (state.notes.size == 1) 1 else 2), // 2 items per row
                         ) {
                             items(state.notes.filter {
@@ -270,7 +250,8 @@ fun NotesScreen (
                                             val result
                                                     = snackbarHostState.showSnackbar(
                                                 message = "Undo delete",
-                                                actionLabel = "Undo"
+                                                actionLabel = "Undo",
+                                                duration = SnackbarDuration.Short
                                             )
                                             if (result == SnackbarResult.ActionPerformed){
                                                 viewModel.onAction(NotesAction.RestoreNote)

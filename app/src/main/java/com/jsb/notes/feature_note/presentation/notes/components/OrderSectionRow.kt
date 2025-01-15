@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,6 +40,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,6 +60,7 @@ import com.jsb.notes.feature_note.presentation.notes.components.order_section.Or
 import com.jsb.notes.feature_note.presentation.notes.components.order_section.OrderTypeIconChange
 import com.jsb.notes.ui.theme.NotesTheme
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
@@ -71,27 +74,40 @@ fun OrderSectionRow(
 ) {
     Row(
         modifier = modifier
-            .height(30.dp)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(
-            onClick = onClick,
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(20.dp))
+                .clickable { onClick() }
         ) {
-            Icon(
-                imageVector = Icons.Default.Sort,
-                contentDescription = "Sort notes",
-                tint = MaterialTheme.colorScheme.onSurface
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "", color = MaterialTheme.colorScheme.onSurface)
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Sort,
+                    contentDescription = "Sort notes",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = when(noteOrder){
+                        is NoteOrder.Title -> "Title"
+                        is NoteOrder.Date -> "Date modified"
+                        is NoteOrder.Color -> "Color"
+                    },
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                    fontSize = 13.sp
+                )
+            }
         }
         Text(
             text = "|",
-            modifier = Modifier.padding(horizontal = 4.dp),
             color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 22.sp
+            fontSize = 24.sp,
         )
         OrderTypeIconChange(
             modifier = modifier,
@@ -111,19 +127,20 @@ fun OrderSectionRow(
     ) {
         Popup(
             offset = IntOffset(
-                x = 560,
-                y = -60
+                x = 550,
+                y = -90
             ),
             onDismissRequest = onDismiss,
             properties = PopupProperties(
                 focusable = true, // Ensures it dismisses on outside click
-                dismissOnClickOutside = true // Additional safety for outside clicks
+                dismissOnClickOutside = true, // Additional safety for outside clicks
+                dismissOnBackPress = true
             )
         ) {
             Box(
                 modifier = Modifier
                     .height(145.dp)
-                    .width(180.dp)
+                    .width(185.dp)
                     .clip(RoundedCornerShape(20.dp))
                     .background(Color.Transparent)
                     .shadow(elevation = 8.dp, shape = RoundedCornerShape(20.dp))
@@ -136,8 +153,8 @@ fun OrderSectionRow(
                         .clip(RoundedCornerShape(20.dp)), // Ensure the screen is clipped
                     noteOrder = noteOrder,
                     onOrderChange = {
-                        onAction(it)
                         onDismiss()
+                        onAction(it)
                     }
                 )
             }

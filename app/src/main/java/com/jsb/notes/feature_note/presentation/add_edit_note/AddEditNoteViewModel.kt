@@ -82,14 +82,14 @@ class AddEditNoteViewModel @Inject constructor(
         when (action) {
             is AddEditNoteAction.TitleEntered -> {
                 _noteTitle.value = noteTitle.value.copy(
-                    isHintVisible = noteTitle.value.text.isBlank(),
-                    text = action.title
+                    text = action.title,
+                    isHintVisible = action.title.isBlank()
                 )
             }
             is AddEditNoteAction.ContentEntered -> {
                 _noteContent.value = noteContent.value.copy(
-                    isHintVisible = noteContent.value.text.isBlank(),
-                    text = action.content
+                    text = action.content,
+                    isHintVisible = action.content.isBlank()
                 )
             }
             is AddEditNoteAction.NoteColorChanged -> {
