@@ -57,21 +57,29 @@ This project is licensed under the MIT License. You are free to use, modify, and
     <td><b>Add / Edit Note</b></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/5950ef3a-949f-4cce-866c-e0998ad9a0e7" width="250" height="450" alt="HomeScreen"></td>
-    <td><img src="https://github.com/user-attachments/assets/7907145f-1391-4b50-b63d-4300caa8297c" width="250" height="450" alt="FilterNotes"></td>
-    <td><img src="https://github.com/user-attachments/assets/e313ecbf-8580-4807-a3f7-677f82fcbbff" width="250" height="450" alt="AddEditNote"></td>
+    <td><img src="https://github.com/user-attachments/assets/5950ef3a-949f-4cce-866c-e0998ad9a0e7" width="230" height="450" alt="HomeScreen"></td>
+    <td><img src="https://github.com/user-attachments/assets/7907145f-1391-4b50-b63d-4300caa8297c" width="230" height="450" alt="FilterNotes"></td>
+    <td><img src="https://github.com/user-attachments/assets/e313ecbf-8580-4807-a3f7-677f82fcbbff" width="230" height="450" alt="AddEditNote"></td>
   </tr>
  <tr>
     <td style="text-align:center"><b>Drawer Screen</b></td>
     <td style="text-align:center"><b>Favorite Notes</b></td>
   </tr>
   <tr>
-    <td style="text-align:center"><img src="https://github.com/user-attachments/assets/3b0c8bfe-04b1-4f2c-8d2d-81e645b2e439" width="250" height="450" alt="DrawerScreen"></td>
-    <td style="text-align:center"><img src="https://github.com/user-attachments/assets/7f70f14d-d574-4e35-b17c-42afaee586e0" width="250" height="450" alt="FavouriteNotes"></td>
+    <td style="text-align:center"><img src="https://github.com/user-attachments/assets/3b0c8bfe-04b1-4f2c-8d2d-81e645b2e439" width="230" height="450" alt="DrawerScreen"></td>
+    <td style="text-align:center"><img src="https://github.com/user-attachments/assets/7f70f14d-d574-4e35-b17c-42afaee586e0" width="230" height="450" alt="FavouriteNotes"></td>
   </tr>
-  
 </table>
 
 ---
+
+## Future Improvements
+
+Here are some of the planned future enhancements:
+
+1. **Search Bar:** Implement a search feature to quickly find specific notes.
+2. **Auto Save:** Automatically save notes as you type.
+3. **To-Do Implementation:** Add a custom checkbox for task management.
+4. **Long Press Actions:** Enable long-press on a note to delete, share, add to favorites, or remove from favorites.
 
 Thank you for checking out the Notes App! Feel free to explore and customize it as per your needs. If you like this project, give it a ⭐ on GitHub!
