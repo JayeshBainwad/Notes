@@ -42,6 +42,9 @@ A feature-rich and user-friendly Notes App that helps you organize your thoughts
 2. Open the project in Android Studio.
 3. Build and run the project on an emulator or a physical device.
 
+## Download Link
+https://drive.google.com/file/d/1SHvfmcueTErb0xtacpAfxAu4nrW3FVou/view?usp=sharing
+
 ## License
 
 This project is licensed under the MIT License. You are free to use, modify, and distribute this project as long as you include the original license. See the [LICENSE](LICENSE) file for more details.
